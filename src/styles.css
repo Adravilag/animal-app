@@ -1,1 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    background-image: url('assets/img/NSwitch_AnimalCrossingNewHorizons_bg_leaves_lightgreen.jpg');
+    background-attachment: fixed;
+}
+
+.navbar {
+    background-color: #154032;
+}
+
+.ngx-pagination {
+    padding-left: 0px !important;
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.fast {
+    -webkit-animation-duration: 0.4s;
+    animation-duration: 0.4s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+}
+
+.ico-leaft {
+    float: left;
+    left: 0px;
+    width: 62px !important;
+    height: 62px !important;
+    background: url('assets/img/128279-medio.png') -4px -4px;
+}
+
+.ico-shovel {
+    left: 0px;
+    width: 62px;
+    height: 62px;
+    background: url('assets/img/128279-medio.png') -69px -4px;
+}

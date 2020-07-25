@@ -1,0 +1,21 @@
+<div class="container m-1">
+    <table class="table-dark">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Canción</th>
+                <th>Precio</th>
+                <th>Vista previa</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of musics">
+            <tr>
+                <td><img [src]="item.image_uri" class="img-thumbnail" width="120px" height="120px" /></td>
+                <td>{{item.name['name-EUes']}}</td>
+                <td *ngIf="item.isOrderable">{{item['buy-price']}}</td>
+                <td *ngIf="!item.isOrderable">No se vende</td>
+                <td><audio [src]="item.music_uri" controls></audio></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div style="float: left">
+                <img [src]="villager.icon_uri" width="50px" height="50px" [alt]="villager.name['name-EUes']" class="rounded">
+            </div>
+            <div class="float-left" class="mt-2">
+                <h3>— <small> {{villager.name['name-EUes'] | uppercase}}</small></h3>
+            </div>
+        </div>
+    </div>
+    <div class="row animated fadeIn bg-light rounded">
+        <div class="col-sm-3 mt-3 mb-3 mr-3">
+            <img [src]="villager.image_uri | noimage" [alt]="villager.name['name-EUes']" class="rounded">
+            <!--
+            <button class="btn btn-outline-danger btn-block" routerLink="/villagers">Volver atrás</button>
+            -->
+        </div>
+        <div class="col-sm mt-3">
+            <h3>{{villager.name['name-EUes']}}
+                <small>
+                    <fa-icon *ngIf="villager.gender == 'Female'" [icon]="faVenus"></fa-icon>
+                    <fa-icon *ngIf="villager.gender == 'Male'" [icon]="faMars"></fa-icon>
+                </small>
+            </h3>
+            <p><strong>Especie:</strong> {{villager.species | species:'es'}} </p>
+            <p><strong>Personalidad:</strong> {{villager.personality | personality:'es'}}</p>
+            <p><strong>Frase:</strong> {{villager['catch-phrase'] }}</p>
+            <fa-icon [icon]="faBirthdayCake"></fa-icon><small class="text-muted "> - {{villager.birthday | birthday}}</small>
+        </div>
+        <div class="col-sm mt-3">
+            <p><audio [src]="villager['file-name']" controls></audio></p>
+            <p><strong>Amistosos:</strong>
+                <img [src]="villager.icon_uri" width="50px" height="50px" [alt]="villager.name['name-EUes']" class="rounded">
+                <img [src]="villager.icon_uri" width="50px" height="50px" [alt]="villager.name['name-EUes']" class="rounded">
+            </p>
+            <p><strong>Conflictivos:</strong>
+                <img [src]="villager.icon_uri" width="50px" height="50px" [alt]="villager.name['name-EUes']" class="rounded">
+                <img [src]="villager.icon_uri" width="50px" height="50px" [alt]="villager.name['name-EUes']" class="rounded">
+            </p>
+        </div>
+    </div>
+</div>

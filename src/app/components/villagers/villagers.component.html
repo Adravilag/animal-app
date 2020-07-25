@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="ico-leaft"></div>
+            <div class="float-left">
+                <h3 class="mt-3">Vecinos: <small>Todos</small></h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <input type="text" #termino class="form-control m-2" placeholder="Buscar vecino..." (keyup)="searchVillager(termino.value)">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <pagination-controls (pageChange)="p= $event " maxSize="9" directionLinks="true" autoHide="true" responsive="true" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-inline m-2">
+                <label class="my-1 mr-2" for="inlineFormCustomSelectPref"><strong>Filtros</strong></label>
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" #valor_gender (change)="filterGender(valor_gender.value)">
+                      <option value="all" selected>Género (Todos)</option>
+                      <option value="Male">Masculino</option>
+                      <option value="Female">Femenino</option>
+                    </select>
+                <select class="custom-select my-1 mr-sm-2 " id="inlineFormCustomSelectPref" #valor_specie (change)="filterSpecie(valor_specie.value)">
+                        <option value="all" selected>Especie (Todas)</option>
+                        <option *ngFor="let specie of species " [value]="specie">{{specie | species:'es' }}</option>
+                    </select>
+                <select class="custom-select my-1 mr-sm-2 " id="inlineFormCustomSelectPref" #valor_personality (change)="filterPersonality(valor_personality.value)">
+                        <option value="all" selected>Personalidad (Todas)</option>
+                        <option *ngFor="let personality of personalities " [value]="personality" >{{personality | personality:'es'}}</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="loading "></div>
+<div class="row equal " *ngIf="!loading ">
+    <div class="col-3 d-flex pb-3 animate__animated animate__fadeIn " *ngFor="let item of villagers | paginate: { itemsPerPage: 20, currentPage: p } ">
+        <div class="card card-block ">
+            <img [src]="item.image_uri " class="card-img-top " alt="... ">
+            <div class="card-body ">
+                <hr>
+                <h5 class="card-title text-center ">{{item.name['name-EUes']}}
+                    <small>
+                        <fa-icon *ngIf="item.gender=='Female' " [icon]="faVenus "></fa-icon>
+                        <fa-icon *ngIf="item.gender=='Male' " [icon]="faMars "></fa-icon>
+                    </small>
+                </h5>
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item "><i class="fas fa-paw "></i> - <strong>Especie:</strong><br>{{item.species | species:'es'}}</li>
+                    <li class="list-group-item "><i class="far fa-comment "></i> - <strong>Personalidad:</strong><br> {{item.personality | personality:'es'}}</li>
+                    <li class="list-group-item ">
+                        <fa-icon [icon]="faBirthdayCake "></fa-icon><small class="text-muted "> - {{item.birthday | birthday}}</small></li>
+                </ul>
+                <button class="btn btn-outline-primary btn-block " (click)="getVillager(item.id) ">Ver más...</button>
+            </div>
+        </div>
+    </div>
+</div>

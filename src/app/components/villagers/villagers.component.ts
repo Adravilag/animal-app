@@ -58,12 +58,12 @@ export class VillagersComponent {
     this.searchVillager(this.termino);
   }
 
-  filterSpecie(value: string) {    
+  filterSpecie(value: string) {
     this.specie = value;
     this.searchVillager(this.termino);
   }
 
-  filterPersonality(value: string) {    
+  filterPersonality(value: string) {
     this.personality = value;
     this.searchVillager(this.termino);
   }
@@ -72,7 +72,7 @@ export class VillagersComponent {
     this.p = 1;
     this.loading = true;
     this.termino = termino;
-    this.villagerService.searchVillagers(termino, this.gender, this.specie, this.personality).subscribe((data: any) => {
+    this.villagerService.searchVillagers(termino, this.gender, this.specie, this.personality, 'name-EUes').subscribe((data: any) => {
       this.villagers = data;
       this.loading = false;
     });

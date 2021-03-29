@@ -11,15 +11,15 @@ import { faVenus } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./villager.component.css']
 })
 export class VillagerComponent implements OnInit {
-  
+
   // Villager
   villager: any = {};
   // Font Awesome
   faBirthdayCake = faBirthdayCake;
   faMars = faMars;
   faVenus = faVenus;
-
-  constructor(private activatedRoute: ActivatedRoute, private villagerService: VillagerService) { 
+searchVillagers
+  constructor(private activatedRoute: ActivatedRoute, private villagerService: VillagerService) {
     this.activatedRoute.params.subscribe( params => {
       this.getVillager(params['id']);
     });

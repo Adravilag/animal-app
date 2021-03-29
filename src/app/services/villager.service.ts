@@ -1,47 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, filter } from 'rxjs/operators';
+import { Animal } from '../model/animal.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VillagerService {
-  constructor(private http: HttpClient) {
-    console.log('Villager service listo');
-  }
 
-  searchVillagers(termino: string, gender: string = "all", specie: string = "all", personality: string = "all") {
-    return this.http.get(`http://acnhapi.com/v1/villagers`).pipe(
-      map((data: any) => {
-        const keys = Object.keys(data);
-        let lista: any[] = [];
-        for (let i = 0; i < keys.length; ++i) {
-          let res_specie = data[keys[i]].species.toLowerCase();
-          let res_personality = data[keys[i]].personality.toLowerCase();
-          let res_gender = data[keys[i]].gender.toLowerCase();
-          let res_name = data[keys[i]].name['name-EUes'].toLowerCase();
-          termino = termino.toLowerCase();
-          if (specie.toLowerCase() === res_specie || specie == 'all') {
-            if (gender.toLowerCase() === res_gender || gender == 'all') {
-              if ( personality.toLowerCase() === res_personality || personality == 'all') {                
-                if (res_name.indexOf(termino) >= 0) {
-                  lista.push(data[keys[i]]);
-                }
-              }
-            }
-          }
+  constructor(private http: HttpClient) { }
 
-        }
-        return lista;
-      })
-    );
-  }
-
-  getVillagers() {
+  loadVillagers() : Observable<Animal[]> {
     return this.http.get('http://acnhapi.com/v1/villagers').pipe(
-      map((data: any) => {
+      map((data: string) => {
         const keys = Object.keys(data);
-        let lista: string[] = [];
+        let lista: Animal[] = [];
         for (let i = 0; i < keys.length; ++i) {
           lista.push(data[keys[i]]);
         }
@@ -50,12 +24,33 @@ export class VillagerService {
     );
   }
 
-  getVillager(termino: string) {
-    return this.http.get(`http://acnhapi.com/v1/villagers/${termino}`).pipe(
-      map((data: any) => {
-        return data;
+  searchVillagers(name: string, gender: string, species: string, personality: string, location: string) : Observable<Animal> {
+
+    let animal = this.getVillagers();
+
+    return animal.pipe(
+      map((resp : any) => {
+        if (gender !== 'all')
+          resp = resp.filter(value => value.gender === gender);
+        if (species !== 'all')
+          resp = resp.filter(value => value.species.toLowerCase() === species.toLowerCase());
+        if (personality !== 'all')
+          resp = resp.filter(value => value.personality.toLowerCase() === personality.toLowerCase());
+        return (
+          resp.filter(value => value.name[location].toLowerCase().indexOf(name.toLowerCase()) >= 0)
+        );
       })
     );
+  }
+
+  getVillagers() : Observable<Animal[]> {
+
+    return this.loadVillagers();
+
+  }
+
+  getVillager(termino: string) {
+    return this.http.get(`http://acnhapi.com/v1/villagers/${termino}`);
   }
 
   getSpecies() {
